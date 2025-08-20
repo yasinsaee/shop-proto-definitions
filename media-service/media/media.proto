@@ -1,0 +1,105 @@
+syntax = "proto3";
+
+package media;
+
+import "google/protobuf/timestamp.proto";
+
+message Media {
+  string id = 1;
+  string file_name = 2;
+  string original_name = 3;
+  string content_type = 4;
+  int64 size = 5;
+  string url = 6;
+  string thumbnail = 7;
+  string owner_id = 8;
+  repeated string tags = 9;
+  map<string, string> metadata = 10;
+  string privacy = 11;
+  string status = 12;
+  google.protobuf.Timestamp expires_at = 13;
+  google.protobuf.Timestamp created_at = 14;
+  google.protobuf.Timestamp updated_at = 15;
+  google.protobuf.Timestamp deleted_at = 16;
+}
+
+message UploadMediaRequest {
+  Media media = 1;            
+  bytes file_content = 2;      
+}
+
+message UploadMediaResponse {
+  Media media = 1;          
+}
+
+message GetMediaByIDRequest {
+  string id = 1;
+}
+
+message GetMediaByIDResponse {
+  Media media = 1;
+}
+
+message ListMediaRequest {
+  map<string, string> filter = 1;
+  int32 limit = 2;
+  int32 offset = 3;
+}
+
+message ListMediaResponse {
+  repeated Media medias = 1;
+}
+
+message DeleteMediaRequest {
+  string id = 1;
+  bool force = 2;
+}
+
+message DeleteMediaResponse {
+  bool success = 1;
+}
+
+message UpdateMediaRequest {
+  Media media = 1;
+}
+
+message UpdateMediaResponse {
+  Media media = 1;
+}
+
+message GetByOwnerRequest {
+  string owner_id = 1;
+  int32 limit = 2;
+  int32 offset = 3;
+}
+
+message GetByOwnerResponse {
+  repeated Media medias = 1;
+}
+
+message GetByTagsRequest {
+  repeated string tags = 1;
+  int32 limit = 2;
+  int32 offset = 3;
+}
+
+message GetByTagsResponse {
+  repeated Media medias = 1;
+}
+
+message GetExpiredRequest {}
+
+message GetExpiredResponse {
+  repeated Media medias = 1;
+}
+
+service MediaService {
+  rpc UploadMedia(UploadMediaRequest) returns (UploadMediaResponse);
+  rpc GetMediaByID(GetMediaByIDRequest) returns (GetMediaByIDResponse);
+  rpc ListMedia(ListMediaRequest) returns (ListMediaResponse);
+  rpc DeleteMedia(DeleteMediaRequest) returns (DeleteMediaResponse);
+  rpc UpdateMedia(UpdateMediaRequest) returns (UpdateMediaResponse);
+  rpc GetByOwner(GetByOwnerRequest) returns (GetByOwnerResponse);
+  rpc GetByTags(GetByTagsRequest) returns (GetByTagsResponse);
+  rpc GetExpired(GetExpiredRequest) returns (GetExpiredResponse);
+}
