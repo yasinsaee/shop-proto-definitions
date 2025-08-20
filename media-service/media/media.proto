@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 package media;
+option go_package = "/mediapb";
 
 import "google/protobuf/timestamp.proto";
 
