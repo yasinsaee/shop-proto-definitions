@@ -25,8 +25,13 @@ message Media {
 }
 
 message UploadMediaRequest {
-  Media media = 1;            
+  string original_name = 1;
   bytes file_content = 2;      
+  string content_type = 3;
+  string owner_id = 4;
+  repeated string tags = 5;
+  map<string, string> metadata = 6;
+  string privacy = 7;
 }
 
 message UploadMediaResponse {
