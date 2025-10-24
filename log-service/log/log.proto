@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package log;
+
+option go_package = "/logpb";
+
+message LogRequest {
+  string level = 1;
+  string message = 2;
+  string service = 3;
+  string module = 4;
+  string request_id = 5;
+  string user_id = 6;
+  string host = 7;
+  string error = 8;
+  map<string, string> extra = 9;
+}
+
+message LogResponse {
+  bool success = 1;
+  string error = 2;
+}
+
+service LogService {
+  rpc WriteLog(LogRequest) returns (LogResponse);
+}
