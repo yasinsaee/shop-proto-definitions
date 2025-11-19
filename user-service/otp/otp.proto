@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package otp;
+option go_package = "/otppb";
+
+message OTP {
+  string id = 1;
+  string userId = 2;
+  string code = 3;
+  int64 expiresAt = 4;
+  bool used = 5;
+}
+
+message CreateOTPRequest {
+  string userId = 1;
+  string code = 2;
+  int32 ttlSeconds = 3;
+}
+message CreateOTPResponse { OTP otp = 1; }
+
+message UpdateOTPRequest {
+  string id = 1;
+  string code = 2;
+  int32 ttlSeconds = 3;
+  bool used = 4;
+}
+message UpdateOTPResponse { OTP otp = 1; }
+
+message DeleteOTPRequest { string id = 1; }
+message DeleteOTPResponse { string message = 1; }
+
+message GetOTPRequest { string id = 1; }
+message GetOTPResponse { OTP otp = 1; }
+
+message ListOTPsRequest {}
+message ListOTPsResponse { repeated OTP otps = 1; }
+
+message RequestOTPRequest {
+  string receiver = 1;
+  int32 ttlSeconds = 2;
+}
+message RequestOTPResponse {
+  string message = 1;
+}
+
+message ValidateOTPRequest {
+  string receiver = 1;
+  string code = 2;
+}
+message ValidateOTPResponse { bool valid = 1; }
+
+service OTPService {
+  rpc CreateOTP(CreateOTPRequest) returns (CreateOTPResponse);
+  rpc UpdateOTP(UpdateOTPRequest) returns (UpdateOTPResponse);
+  rpc DeleteOTP(DeleteOTPRequest) returns (DeleteOTPResponse);
+  rpc GetOTP(GetOTPRequest) returns (GetOTPResponse);
+  rpc ListOTPs(ListOTPsRequest) returns (ListOTPsResponse);
+
+  rpc RequestOTP(RequestOTPRequest) returns (RequestOTPResponse);
+  rpc ValidateOTP(ValidateOTPRequest) returns (ValidateOTPResponse);
+}
