@@ -27,3 +27,22 @@ foreach ($file in $protoFiles) {
            --go_out=. --go_opt=paths=source_relative `
            --go-grpc_out=. --go-grpc_opt=paths=source_relative "$relativePath"
 }
+
+#UBUNTU
+#!/bin/bash
+
+protoRoot="$(pwd)/proto"
+
+# Find all .proto files recursively
+protoFiles=$(find "$protoRoot" -name "*.proto")
+
+for file in $protoFiles; do
+    # Get relative path
+    relativePath="${file#$protoRoot/}"
+
+    # Run protoc
+    protoc -I="$protoRoot" \
+           --go_out=. --go_opt=paths=source_relative \
+           --go-grpc_out=. --go-grpc_opt=paths=source_relative \
+           "$relativePath"
+done
