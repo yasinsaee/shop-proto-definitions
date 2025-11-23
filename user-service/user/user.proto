@@ -70,9 +70,10 @@ message UpdateUser {
 }
 
 message ResetPasswordUser {
-  string current_password = 1;
-  string new_password = 2;
-  string repeat_new_password = 3;
+  string username = 1;
+  string current_password = 2;
+  string new_password = 3;
+  string repeat_new_password = 4;
 }
 
 service UserService {
