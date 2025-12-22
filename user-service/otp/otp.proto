@@ -3,20 +3,29 @@ syntax = "proto3";
 package otp;
 option go_package = "github.com/yasinsaee/go-user-service/otppb";
 
+// OTP type enum
+enum OTPType {
+  FORGOT_PASSWORD = 0;
+  REGISTER = 1;
+  EMAIL_VERIFICATION = 2;
+}
+
 // OTP structure
 message OTP {
   string id = 1;
-  string receiver = 2;      // شماره موبایل یا ایمیل
+  string receiver = 2;     
   string code = 3;
   int64 expiresAt = 4;
   bool used = 5;
+  OTPType type = 6;      
 }
 
 // CRUD
 message CreateOTPRequest {
   string receiver = 1;
   string code = 2;
-  int32 ttlSeconds = 3;
+  OTPType type = 3;
+  int32 ttlSeconds = 4;
 }
 message CreateOTPResponse { OTP otp = 1; }
 
@@ -25,6 +34,7 @@ message UpdateOTPRequest {
   string code = 2;
   int32 ttlSeconds = 3;
   bool used = 4;
+  OTPType type = 5;
 }
 message UpdateOTPResponse { OTP otp = 1; }
 
@@ -39,8 +49,9 @@ message ListOTPsResponse { repeated OTP otps = 1; }
 
 // Business Logic (Request / Validate OTP)
 message RequestOTPRequest {
-  string receiver = 1;   // شماره موبایل یا ایمیل
-  int32 ttlSeconds = 2;
+  string receiver = 1;   
+  OTPType type = 2;    
+  int32 ttlSeconds = 3;
 }
 message RequestOTPResponse {
   string message = 1;
@@ -49,6 +60,7 @@ message RequestOTPResponse {
 message ValidateOTPRequest {
   string receiver = 1;
   string code = 2;
+  OTPType type = 3;   
 }
 message ValidateOTPResponse { bool valid = 1; }
 
