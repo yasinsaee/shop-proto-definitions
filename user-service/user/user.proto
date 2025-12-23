@@ -78,14 +78,25 @@ message ResetPasswordUser {
 
 message UpdatePasswordUser {
   string username = 1;
-  string new_password = 3;
-  string repeat_new_password = 4;
+  string new_password = 2;
+  string repeat_new_password = 3;
 }
 
+message RefreshTokenRequest{
+  string refresh_token = 1;
+}
+
+message RefreshTokenResponse{
+  string access_token = 1;  
+  google.protobuf.Timestamp expires_at = 2;
+}
 service UserService {
   rpc Login(LoginRequest) returns (LoginResponse);
   rpc Register(RegisterUser) returns (UserResponse);
   rpc Update(UpdateUser) returns (UserResponse);
   rpc ResetPassword(ResetPasswordUser) returns (UserResponse);
   rpc UpdatePassword(UpdatePasswordUser) returns (UserResponse);
+  rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse);
+  
 }
+  
