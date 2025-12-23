@@ -76,9 +76,16 @@ message ResetPasswordUser {
   string repeat_new_password = 4;
 }
 
+message UpdatePasswordUser {
+  string username = 1;
+  string new_password = 3;
+  string repeat_new_password = 4;
+}
+
 service UserService {
   rpc Login(LoginRequest) returns (LoginResponse);
   rpc Register(RegisterUser) returns (UserResponse);
   rpc Update(UpdateUser) returns (UserResponse);
   rpc ResetPassword(ResetPasswordUser) returns (UserResponse);
+  rpc UpdatePassword(UpdatePasswordUser) returns (UserResponse);
 }
