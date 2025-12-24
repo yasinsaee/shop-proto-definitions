@@ -91,6 +91,11 @@ message RefreshTokenResponse{
   string refresh_token = 2;  
   google.protobuf.Timestamp expires_at = 3;
 }
+
+message LogoutResponse {
+  bool success = 1;
+  string message = 2;
+}
 service UserService {
   rpc Login(LoginRequest) returns (LoginResponse);
   rpc Register(RegisterUser) returns (UserResponse);
@@ -98,6 +103,7 @@ service UserService {
   rpc ResetPassword(ResetPasswordUser) returns (UserResponse);
   rpc UpdatePassword(UpdatePasswordUser) returns (UserResponse);
   rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse);
+  rpc Logout(RefreshTokenRequest) returns (LogoutResponse);
   
 }
   
