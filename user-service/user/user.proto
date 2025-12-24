@@ -88,7 +88,8 @@ message RefreshTokenRequest{
 
 message RefreshTokenResponse{
   string access_token = 1;  
-  google.protobuf.Timestamp expires_at = 2;
+  string refresh_token = 2;  
+  google.protobuf.Timestamp expires_at = 3;
 }
 service UserService {
   rpc Login(LoginRequest) returns (LoginResponse);
