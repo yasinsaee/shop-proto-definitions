@@ -22,6 +22,7 @@ message GetPermissionResponse {
 message CreatePermissionRequest {
   string name = 1;
   string description = 2;
+  string key = 3;
 }
 
 message CreatePermissionResponse {
@@ -32,6 +33,7 @@ message UpdatePermissionRequest {
   string id = 1;
   string name = 2;
   string description = 3;
+  string key = 4;
 }
 
 message UpdatePermissionResponse {
